@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'gateway'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/leandrocodegit/servico.git'
+            }
+        }
+
+        stage('Build - Maven') {
+            steps {
+                dir('gateway') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+             dir('gateway') {
+                sh "docker build -t ${IMAGE_NAME} ."
+                }
+            }
+        }
+
+        stage('Deploy com Docker Compose') {
+            steps {
+                sh "docker-compose down || true"
+                sh  "docker-compose up -d --build"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deploy realizado com imagem local!'
+        }
+    }
+}

@@ -1,0 +1,18 @@
+server:
+  port: 9000
+  ssl:
+    enabled: false
+
+spring:
+  codec:
+    max-in-memory-size: 10MB
+keycloak-issuer: http://localhost:8080/realms/
+
+routes:
+  map:
+    usuario: http://localhost:9082
+    conta: http://localhost:9082
+    formulario: http://localhost:9087
+    engine: http://localhost:9087
+    protocolo: http://localhost:9088
+    modelos: http://localhost:9089

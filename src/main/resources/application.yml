@@ -1,0 +1,19 @@
+server:
+  port: 2083
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: Pass2020!
+    key-store-type: PKCS12
+    key-alias: keycloak
+
+spring:
+  codec:
+    max-in-memory-size: 10MB
+keycloak-issuer: https://auth.simodapp.com/realms/
+
+routes:
+  map:
+    usuario: http://usuario:9082
+    conta: http://usuario:9082
+    formulario: http://formulario:9087
+    protocolo: http://protocolo:9088

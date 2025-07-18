@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  app-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gateway-0.0.1
+    ports:
+      - "2083:2083"
+      - "9000:9000"
+    environment:
+      - JAVA_OPTS=-Dspring.profiles.active=prod
+    container_name: gateway
+    networks:
+      - backend-toten_totem-network
+
+networks:
+  backend-toten_totem-network:
+    external: true
